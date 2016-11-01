@@ -30,3 +30,10 @@ go run decrypt/main.go  263.04s user 3.40s system 591% cpu 45.037 total
 ➜ time go run decrypt/main.go
 go run decrypt/main.go  281.83s user 3.68s system 640% cpu 44.560 total
 ```
+
+### Licence
+
+Copyright ©‎ 2016, Office for National Statistics (https://www.ons.gov.uk)
+
+Released under MIT license, see [LICENSE](LICENSE.md) for details.
+
