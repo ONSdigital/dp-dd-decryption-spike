@@ -53,7 +53,12 @@ func decryptFile(key []byte, file string) {
 		panic(err)
 	}
 
+	// Read the IV from the file first
 	var iv [aes.BlockSize]byte
+	_, err = inFile.Read(iv[:])
+	if err != nil {
+		panic(err)
+	}
 	stream := cipher.NewOFB(block, iv[:])
 
 	reader := &cipher.StreamReader{S: stream, R: inFile}
