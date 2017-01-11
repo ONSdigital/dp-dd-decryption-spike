@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"crypto/rand"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -104,9 +105,15 @@ func newBatchWriter(key []byte, batch int) *cipher.StreamWriter {
 	}
 
 	var iv [aes.BlockSize]byte
+	rand.Read(iv[:])
 	stream := cipher.NewOFB(block, iv[:])
 
 	outFile, err := os.OpenFile(fmt.Sprintf("output/batch%d.csv.bin", batch), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = outFile.Write(iv[:])
 	if err != nil {
 		panic(err)
 	}
